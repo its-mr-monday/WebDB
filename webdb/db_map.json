@@ -1,0 +1,22 @@
+{
+    "databases" : {
+        
+        "users": {
+            "usersSchema": {
+                "users_table": {
+                    "fields": {
+                        "id": "int AUTOINCREMENT",
+                        "name": "string",
+                        "password": "string"
+                    }
+                }
+            }
+        }
+    },
+    "groups": [
+        "root"
+        
+    ]
+    ,
+    "secret_key": "secret_key"
+}
