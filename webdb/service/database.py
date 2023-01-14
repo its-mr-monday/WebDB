@@ -192,6 +192,13 @@ class Database:
         except Exception:
             return False
         
+    def get_user_from_token(self, token: str) -> str:
+        try:
+            val = jwt.decode(token, self.secret_key, algorithms=['HS256'])
+            return val['user']
+        except Exception:
+            return None
+        
     def update_table(self, user: str, database: str, schema: str, table: str, condition: str, change_map: dict) -> str:
         if self.table_exists(database, schema, table) == False:
             raise DatabaseException(f'Table not found: {table}')

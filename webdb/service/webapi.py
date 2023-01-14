@@ -39,10 +39,18 @@ def update(database, schema, table):
     token = request.headers.get('Authorization')[7:]
     if not db.verify_user_token(token):
         return {"error": "Invalid Authorization token!"}, 401
+    user = db.get_user_from_token(token)
+    if user == None:
+        return {"error": "Invalid Authorization token!"}, 401
     if not request.is_json():
         return {"error": "Invalid Request Type!"}, 400
     data = request.get_json()
-    
+    condition = data["condition"]
+    try:
+        db.update_table(user, database, schema, table, condition)
+        return {"message": f"Table {database}.{schema}.{table} updated successfully!"}, 200
+    except DatabaseException as e:
+        return {"error": str(e)}, 400
     
 def run_api(api: Flask):
     api.run(port=5555)

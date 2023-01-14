@@ -1,0 +1,8 @@
+FROM scratch
+ADD ubuntu-kinetic-oci-amd64-root.tar.gz /
+
+#COPY NEEDED FILES
+ADD databases /opt/webdb/databases
+COPY db_map.json /opt/webdb/db_map.json
+
+CMD ["bash"]
